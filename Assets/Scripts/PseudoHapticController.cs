@@ -8,7 +8,7 @@ public class PseudoHapticController : Controller
     private Quaternion _prevRealRotation;
     protected Vector3 deltaPosition;
     protected Quaternion deltaRotation;
-    
+
     protected override void UpdateVirtual()
     {
         // Get real controller position/rotation change 
@@ -18,7 +18,7 @@ public class PseudoHapticController : Controller
         _prevRealRotation = RealRotation;
 
         // Adjust amount moved since previous frame by DisplayControlRatio
-        VirtualPosition += Vector3.Scale(deltaPosition , DisplayControlRatioVec);
+        VirtualPosition += Vector3.Scale(deltaPosition, DisplayControlRatioVec);
         VirtualRotation = Quaternion.Slerp(Quaternion.identity, deltaRotation, DisplayControlRatio) * VirtualRotation;
         // Apply the rotation to the grab position offset
         _grabPositionOffset = Quaternion.Slerp(Quaternion.identity, deltaRotation, DisplayControlRatio) * _grabPositionOffset;

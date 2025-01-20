@@ -16,8 +16,8 @@ public class Controller : MonoBehaviour
     protected Vector3 VirtualPosition;
     protected Quaternion VirtualRotation = Quaternion.identity;
 
-    protected float DisplayControlRatio = 0.5f;   //reciprocal of Control/Display ratio
-    protected Vector3 DisplayControlRatioVec = new Vector3(0.5f, 0.5f, 0.5f);
+    protected float DisplayControlRatio = 1f;   //reciprocal of Control/Display ratio
+    protected Vector3 DisplayControlRatioVec = new Vector3(1f, 1f, 1f);
 
     private bool _grabDown;
     private bool _toggleDown;
@@ -26,10 +26,8 @@ public class Controller : MonoBehaviour
 
     private Transform _realRepresentation;
     private Transform _visual;
-    /*
-    private GameObject UIobject;
-    private Vector3 UIobjectDisplayPos;
-    */
+    //private GameObject UIobject;
+    //private Vector3 UIobjectDisplayPos;
     private readonly Collider[] _colliders = new Collider[5];
     protected Rigidbody _selected_rb;
 
@@ -38,19 +36,10 @@ public class Controller : MonoBehaviour
 
     protected virtual void Start()
     {
-        Debug.Log("start");
-        _controllerData = GetComponent<ControllerData>(); 
+        _controllerData = GetComponent<ControllerData>();
         _realRepresentation = Instantiate(_controllerData.realPrefab, transform);
-        Debug.Log(Time.time + ": _realRepresentation = " + _realRepresentation);
-
-       _visual = Instantiate(_controllerData.visualPrefab, transform);
+        _visual = Instantiate(_controllerData.visualPrefab, transform);
         InputDevices.deviceConnected += DeviceConnected;
-
-        float floatValue = (float)_controllerData.DC_ratio;
-        DisplayControlRatio = floatValue;
-
-        DisplayControlRatioVec = new Vector3(DisplayControlRatio, DisplayControlRatio, DisplayControlRatio);
-
         UpdateDevice();
         // Reset drift once all setup so that we start with no drift
         Invoke(nameof(ResetDrift), 1f);
@@ -64,33 +53,27 @@ public class Controller : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("OnEnable");
-        Start();
         ResetDrift();
     }
 
     private void OnDisable()
     {
-        Debug.Log("OnDisable");
         _realRepresentation.position = Vector3.one * -100f;
         _visual.position = Vector3.one * -100f;
     }
 
     private void DeviceConnected(InputDevice device)
     {
-        Debug.Log("DeviceConnected");
         UpdateDevice();
     }
 
     private void UpdateDevice()
     {
-        Debug.Log("UpdateDevice");
         _device = InputDevices.GetDeviceAtXRNode(_controllerData.controllerNode);
     }
 
     protected Vector3 GetPosition()
     {
-        Debug.Log("GetPosition");
         if (_device.isValid && _device.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 position))
             return position;
         return Vector3.zero;
@@ -98,7 +81,6 @@ public class Controller : MonoBehaviour
 
     protected Quaternion GetRotation()
     {
-        Debug.Log("GetRotation");
         if (_device.isValid && _device.TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion rotation))
         {
             return rotation;
@@ -109,7 +91,6 @@ public class Controller : MonoBehaviour
 
     protected void CheckGrab()
     {
-        Debug.Log("CheckGrab");
         io_output = _device.TryGetFeatureValue(CommonUsages.gripButton, out bool value);
         if (_grabDown && !value)    //grip released
         {
@@ -127,7 +108,6 @@ public class Controller : MonoBehaviour
 
     protected void CheckSliderToggle()
     {
-        Debug.Log("CheckSliderToggle");
         //primary button is X (left hand controller)
         //secondary button is Y  (left hand controller)
         io_output = _device.TryGetFeatureValue(CommonUsages.primaryButton, out bool value);
@@ -148,7 +128,6 @@ public class Controller : MonoBehaviour
 
     private void ProcessInput()
     {
-        Debug.Log("ProcessInput");
         RealPosition = transform.TransformPoint(GetPosition());
         RealRotation = GetRotation();
 
@@ -158,14 +137,12 @@ public class Controller : MonoBehaviour
 
     protected virtual void UpdateVirtual()
     {
-        Debug.Log("UpdateVirtual");
         VirtualPosition = RealPosition;
         VirtualRotation = RealRotation;
     }
 
     protected virtual void UpdateRepresentation()
     {
-        Debug.Log("UpdateRepresentation");
         _visual.position = VirtualPosition;
         _visual.localRotation = VirtualRotation.normalized;
         if (_controllerData.showReal)
@@ -191,7 +168,6 @@ public class Controller : MonoBehaviour
 
     protected virtual void UpdateHolding()
     {
-        Debug.Log("UpdateHolding");
         if (_selected_rb)
         {
             _selected_rb.isKinematic = true;
@@ -202,7 +178,6 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Update");
         ProcessInput();
         UpdateVirtual();
         UpdateRepresentation();
@@ -211,16 +186,12 @@ public class Controller : MonoBehaviour
 
     protected virtual void ResetDrift()
     {
-        Debug.Log("ResetDrift");
         VirtualPosition = RealPosition;
         VirtualRotation = RealRotation;
-        Debug.Log("new virtual position: " + VirtualPosition);
-        Debug.Log("new virtual rotation: " + VirtualRotation);
     }
 
     protected virtual void Grab()
     {
-        Debug.Log("Grab");
         if (_selected_rb) return;
         int size = Physics.OverlapSphereNonAlloc(VirtualPosition, _controllerData.grabRadius, _colliders, _controllerData.layerMask);
         if (size == 0) return;
@@ -243,7 +214,6 @@ public class Controller : MonoBehaviour
         _selected_rb = _selected_collider.attachedRigidbody;
         DisplayControlRatio = 1f / _selected_rb.mass;   //large mass -> less display movement realtive to controller movement
         DisplayControlRatioVec.y = 1f / _selected_rb.mass;
-        DisplayControlRatioVec.x = 1f / _selected_rb.mass;
         _selected_rb.isKinematic = true;    //turn off physics for selected object
         _grabPositionOffset = _selected_rb.position - VirtualPosition;
         _grabRotationOffset = Quaternion.Inverse(VirtualRotation) * _selected_rb.rotation;
@@ -251,7 +221,6 @@ public class Controller : MonoBehaviour
 
     protected virtual void Release()
     {
-        Debug.Log("Release");
         if (!_selected_rb) return;
         _selected_rb.isKinematic = false;   //turn physics back on
         _selected_rb = null;
@@ -259,4 +228,3 @@ public class Controller : MonoBehaviour
         DisplayControlRatioVec.y = 1f;
     }
 }
-
