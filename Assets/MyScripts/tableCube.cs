@@ -9,7 +9,7 @@ using System;
 
 public class tableCube : MonoBehaviour
 {
-       ///*
+    /*
     [SerializeField] private MRUK mruk;
     [SerializeField] private OVRInput.Controller controller;
     [SerializeField] private GameObject objectToAdd;
@@ -72,5 +72,5 @@ public class tableCube : MonoBehaviour
             }
         }
     }
-       //*/
+    */
 }
