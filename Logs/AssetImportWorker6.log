@@ -1,0 +1,336 @@
+Using pre-set license
+Built from '6000.0/staging' branch; Version is '6000.0.34f1 (5ab2d9ed9190) revision 5944025'; Using compiler version '193933523'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19045) 64bit Enterprise' Language: 'en' Physical Memory: 16087 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.0.34f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker6
+-projectPath
+C:/Users/vradmin/Documents/Gauri_Desai/Gauri_cd_oculus
+-logFile
+Logs/AssetImportWorker6.log
+-srvPort
+64240
+-job-worker-count
+9
+-background-job-worker-count
+8
+-gc-helper-count
+1
+Successfully changed project path to: C:/Users/vradmin/Documents/Gauri_Desai/Gauri_cd_oculus
+C:/Users/vradmin/Documents/Gauri_Desai/Gauri_cd_oculus
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [73616]  Target information:
+
+Player connection [73616]  * "[IP] 192.168.1.183 [Port] 0 [Flags] 2 [Guid] 1172672812 [EditorId] 1172672812 [Version] 1048832 [Id] WindowsEditor(7,Polar) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [73616] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [73616] Host joined alternative multi-casting on [225.0.0.222:34997]...
+JobSystem: Creating JobQueue using job-worker-count value 9
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Refreshing native plugins compatible for Editor in 669.76 ms, found 13 plugins.
+Preloading 3 native plugins for Editor in 5.74 ms.
+Initialize engine version: 6000.0.34f1 (5ab2d9ed9190)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.0.34f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/vradmin/Documents/Gauri_Desai/Gauri_cd_oculus/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3080 Laptop GPU (ID=0x249c)
+    Vendor:   NVIDIA
+    VRAM:     8031 MB
+    Driver:   31.0.15.2892
+Shader 'Meta/MRUK/Scene/HighlightsAndShadows': fallback shader 'Off' not found
+Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.0.34f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.0.34f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.0.34f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56968
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.0.34f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.0.34f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.0.34f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
+Registered in 0.007994 seconds.
+- Loaded All Assemblies, in  0.927 seconds
+Native extension for iOS target not found
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 444 ms
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.093 seconds
+Domain Reload Profiling: 2017ms
+	BeginReloadAssembly (265ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (173ms)
+	RebuildNativeTypeToScriptingClass (19ms)
+	initialDomainReloadingComplete (79ms)
+	LoadAllAssembliesAndSetupDomain (388ms)
+		LoadAssemblies (260ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (383ms)
+			TypeCache.Refresh (381ms)
+				TypeCache.ScanAssembly (363ms)
+			BuildScriptInfoCaches (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (1094ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1018ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (625ms)
+			SetLoadedEditorAssemblies (5ms)
+			BeforeProcessingInitializeOnLoad (81ms)
+			ProcessInitializeOnLoadAttributes (203ms)
+			ProcessInitializeOnLoadMethodAttributes (103ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Import Worker Mode flag is 0x00
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  1.744 seconds
+'Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlocksWindow.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlocksWindowDetailsExt.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Refreshing native plugins compatible for Editor in 11.63 ms, found 13 plugins.
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Package Manager log level set to [2]
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Refreshing native plugins compatible for Editor in 11.91 ms, found 13 plugins.
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x0003d] in .\Library\PackageCache\com.unity.xr.oculus\Runtime\OculusLoader.cs:307 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0008c] in .\Library\PackageCache\com.unity.xr.oculus\Runtime\OculusLoader.cs:292 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <ed969b0e627d471da4848289f9c322df>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <ed969b0e627d471da4848289f9c322df>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <ed969b0e627d471da4848289f9c322df>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x00056] in <a91c06e683e34bc9beda6e2852c04783>:0 
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+Mono: successfully reloaded assembly
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Finished resetting the current domain, in  2.162 seconds
+Domain Reload Profiling: 3893ms
+	BeginReloadAssembly (238ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (9ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (40ms)
+	RebuildCommonClasses (49ms)
+	RebuildNativeTypeToScriptingClass (18ms)
+	initialDomainReloadingComplete (59ms)
+	LoadAllAssembliesAndSetupDomain (1367ms)
+		LoadAssemblies (742ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (767ms)
+			TypeCache.Refresh (522ms)
+				TypeCache.ScanAssembly (481ms)
+			BuildScriptInfoCaches (206ms)
+			ResolveRequiredComponents (32ms)
+	FinalizeReload (2163ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1761ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (23ms)
+			SetLoadedEditorAssemblies (7ms)
+			BeforeProcessingInitializeOnLoad (200ms)
+			ProcessInitializeOnLoadAttributes (1238ms)
+			ProcessInitializeOnLoadMethodAttributes (279ms)
+			AfterProcessingInitializeOnLoad (11ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (16ms)
+Shader 'Oculus/OVRMRCameraFrameLit': fallback shader 'Alpha-Diffuse' not found
+Shader 'Meta/MRUK/Scene/HighlightsAndShadows': fallback shader 'Off' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 15.45 ms, found 13 plugins.
+Preloading 3 native plugins for Editor in 0.58 ms.
+Unloading 308 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 9033 unused Assets / (6.0 MB). Loaded Objects now: 9773.
+Memory consumption went from 215.7 MB to 209.7 MB.
+Total: 23.984200 ms (FindLiveObjects: 1.711200 ms CreateObjectMapping: 3.548100 ms MarkObjects: 13.348500 ms  DeleteObjects: 5.373600 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 746872.570515 seconds.
+  path: Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/Materials/CubeMaterialBlue.mat
+  artifactKey: Guid(d4b438dc8ad501b49a2690e746518b8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/Materials/CubeMaterialBlue.mat using Guid(d4b438dc8ad501b49a2690e746518b8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '7ba5bcdca58b6705a50742892142f04a') in 0.8468591 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Packages/com.meta.xr.mrutilitykit/Core/Materials/MRUKLit.mat
+  artifactKey: Guid(83c5f3946340c0e4ca684523c367b35a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.mrutilitykit/Core/Materials/MRUKLit.mat using Guid(83c5f3946340c0e4ca684523c367b35a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '52f62f19de258305853521c4b266dee4') in 0.0265864 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Environment/Locomotion/Models/Materials/LocomotionGardenMat.mat
+  artifactKey: Guid(32e0f3fc945e5eb41a11daceb28df255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Environment/Locomotion/Models/Materials/LocomotionGardenMat.mat using Guid(32e0f3fc945e5eb41a11daceb28df255) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '12d5b64e3c492f289fe8b1b6de4cd427') in 0.075794 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Materials/ThumbsDown.mat
+  artifactKey: Guid(5e016ecb7867fea49b0e4ebe3880f346) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Materials/ThumbsDown.mat using Guid(5e016ecb7867fea49b0e4ebe3880f346) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '59d6f2aec01ed13fd37da0b5e0371ff0') in 0.0574463 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/SampleSpatialAnchorController/Meshs/AnchorModel.fbx
+  artifactKey: Guid(7d83cba011175b348a00dd821fe8cddd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/SampleSpatialAnchorController/Meshs/AnchorModel.fbx using Guid(7d83cba011175b348a00dd821fe8cddd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '841a397234a65b9e59a137a6584e1cab') in 0.3540618 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 31
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Environment/Locomotion/Models/Materials/InteriorDoorMat.mat
+  artifactKey: Guid(2f8f24c4b695e264e905df001683ba11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Environment/Locomotion/Models/Materials/InteriorDoorMat.mat using Guid(2f8f24c4b695e264e905df001683ba11) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'b3d198f533cd71a29f732b12f59de8bf') in 0.0526175 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000084 seconds.
+  path: Packages/com.meta.xr.sdk.core/Meshes/HandTracking/OculusHand_L.fbx
+  artifactKey: Guid(442d5b4503ed83c4897ef44659446587) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.core/Meshes/HandTracking/OculusHand_L.fbx using Guid(442d5b4503ed83c4897ef44659446587) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '30bd605625585c5f505a8765661bb5a6') in 0.0884341 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 167
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Samples/XR Interaction Toolkit/3.0.7/Starter Assets/DemoSceneAssets/Models/PushButton.fbx
+  artifactKey: Guid(7ab6f3b0fd1a6ba41b2a47766c16613f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/XR Interaction Toolkit/3.0.7/Starter Assets/DemoSceneAssets/Models/PushButton.fbx using Guid(7ab6f3b0fd1a6ba41b2a47766c16613f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'c5d89483f9c1cd5591f232388de85da0') in 0.0801189 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 18
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/SprayBottle/Materials/SprayBottleMat.mat
+  artifactKey: Guid(a3c7c28078c767c4d99a4ef2cdfad045) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/SprayBottle/Materials/SprayBottleMat.mat using Guid(a3c7c28078c767c4d99a4ef2cdfad045) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'f6a94d1dd48bd9ae1a11aa340039e20f') in 0.0405955 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000053 seconds.
+  path: Assets/Samples/XR Interaction Toolkit/3.0.7/Starter Assets/DemoSceneAssets/Materials/Concrete Dark Blue.mat
+  artifactKey: Guid(bbb56ac3cf3c61a46ab3887c0fdbda8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/XR Interaction Toolkit/3.0.7/Starter Assets/DemoSceneAssets/Materials/Concrete Dark Blue.mat using Guid(bbb56ac3cf3c61a46ab3887c0fdbda8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'e1e43a7257c209c230b459bf25f6bd69') in 5.5918219 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000054 seconds.
+  path: Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Materials/RoundedBoxUI_ButtonHover.mat
+  artifactKey: Guid(f4e012bf31c928b4b8291fea83fe5b96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Materials/RoundedBoxUI_ButtonHover.mat using Guid(f4e012bf31c928b4b8291fea83fe5b96) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '1d28a58b3825e5dc9370dc13086a2fcb') in 0.0123521 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/Key/Materials/keyMaterial.mat
+  artifactKey: Guid(fa19159987a504d45bf0de8a23633f94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/Key/Materials/keyMaterial.mat using Guid(fa19159987a504d45bf0de8a23633f94) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'c0ebc09fb5cc20ee6871d56e9b6c3c06') in 0.0335329 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Samples/XR Interaction Toolkit/3.0.7/Starter Assets/Shaders/Interactable.shadergraph
+  artifactKey: Guid(0927d29e476ce5843b1f7d2a96943c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/XR Interaction Toolkit/3.0.7/Starter Assets/Shaders/Interactable.shadergraph using Guid(0927d29e476ce5843b1f7d2a96943c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '5c85535f5bab67e2afce6129cdb1cb8f') in 5.623077 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 6
+
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

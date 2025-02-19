@@ -22,25 +22,25 @@ public class tableCube : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("on enable");
+        Debug.Log("[tableCube] on enable");
         mruk.RoomCreatedEvent.AddListener(BindRoomInfo);
     }
 
     private void OnDisable()
     {
-        Debug.Log("on disable");
+        Debug.Log("[tableCube] on disable");
         mruk.RoomCreatedEvent.RemoveListener(BindRoomInfo);
     }
 
     public void EnableMRUKDemo()
     {
-        Debug.Log("enable demo");
+        Debug.Log("[tableCube] enable demo");
         sceneLoaded = true;
     }
 
     private void BindRoomInfo(MRUKRoom room)
     {
-        Debug.Log("bind room info");
+        Debug.Log("[tableCube] bind room info");
         currRoom = room;
     }
 
@@ -48,26 +48,26 @@ public class tableCube : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller) && SceneAndRoomInfoAvailable)
         {
-            Debug.Log("ready to spawn cube");
+            Debug.Log("[tableCube] ready to spawn cube");
             if (tableAnchor.Count == 0)
             {
-                Debug.Log("no anchors");
+                Debug.Log("[tableCube] no anchors");
                 foreach (var anchor in currRoom.Anchors)
                 {
                     var createdTableObj = Instantiate(objectToAdd, (Vector3.one), Quaternion.identity, anchor.transform);
                     createdTableObj.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                     tableAnchor.Add(createdTableObj);
-                    Debug.Log("created an anchor");
+                    Debug.Log("[tableCube] created an anchor");
                 }
             }
             else
             {
-                Debug.Log("anchor(s) found");
+                Debug.Log("[tableCube] anchor(s) found");
                 foreach (var t in tableAnchor)
                 {
                     Destroy(t);
                     tableAnchor.Clear();
-                    Debug.Log("cleared the anchor");
+                    Debug.Log("[tableCube] cleared the anchor");
                 }
             }
         }
