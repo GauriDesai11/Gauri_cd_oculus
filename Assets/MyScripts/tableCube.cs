@@ -95,8 +95,8 @@ public class TableCube : MonoBehaviour
                 Vector3 rightPosition = center + new Vector3((surfaceWidth / 2) - positionOffset, 0, 0);
 
                 // Adjust height to place objects ON TOP of the surface
-                leftPosition.y += surfaceHeight / 2;
-                rightPosition.y += surfaceHeight / 2;
+                //leftPosition.y += surfaceHeight / 2;
+                //rightPosition.y += surfaceHeight / 2;
 
                 // Instantiate prefabs
                 GameObject objA = Instantiate(prefab1, leftPosition, Quaternion.identity, anchor.transform);
