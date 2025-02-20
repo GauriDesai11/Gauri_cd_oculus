@@ -760,6 +760,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 77626375}
+  - component: {fileID: 77626377}
   - component: {fileID: 77626376}
   m_Layer: 0
   m_Name: OVRLeftHandVisual
@@ -794,13 +795,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 77626374}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a409e0475241d4d93e98f320ae1b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _handVisual: {fileID: 77626377}
+  _scaleMovements: 1
+  _scaleRatio: 1.5
+--- !u!114 &77626377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77626374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9af9ea683544b184083cef283557012d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _hand: {fileID: 2086910430}
-  _updateRootPose: 1
+  _updateRootPose: 0
   _updateRootScale: 1
-  _updateVisibility: 1
+  _updateVisibility: 0
   _skinnedMeshRenderer: {fileID: 1146138805}
   _root: {fileID: 150111970}
   _handMaterialPropertyBlockEditor: {fileID: 1146138804}
