@@ -19611,6 +19611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OVRTouchHandGrabInteractor
       objectReference: {fileID: 0}
+    - target: {fileID: 4815712199228594534, guid: eacb945ff4b1f71479625dd1c973b0f2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4815712199228594535, guid: eacb945ff4b1f71479625dd1c973b0f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
