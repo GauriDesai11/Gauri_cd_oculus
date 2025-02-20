@@ -762,6 +762,7 @@ GameObject:
   - component: {fileID: 77626375}
   - component: {fileID: 77626377}
   - component: {fileID: 77626376}
+  - component: {fileID: 77626378}
   m_Layer: 0
   m_Name: OVRLeftHandVisual
   m_TagString: Untagged
@@ -800,7 +801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _handVisual: {fileID: 77626377}
   _scaleMovements: 1
-  _scaleRatio: 1.5
+  _scaleRatio: 1
 --- !u!114 &77626377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,6 +876,21 @@ MonoBehaviour:
   - {fileID: 29934171}
   - {fileID: 228799965}
   - {fileID: 1243321946}
+--- !u!114 &77626378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77626374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1419650be1e2e142b69a33bf172802c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _handGrabInteractor: {fileID: 1834084577}
+  _handVisual: {fileID: 77626376}
+  _defaultScaleRatio: 1.5
 --- !u!1 &79167642
 GameObject:
   m_ObjectHideFlags: 0

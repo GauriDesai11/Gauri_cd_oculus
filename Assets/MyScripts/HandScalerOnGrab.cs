@@ -4,57 +4,55 @@ using System.Diagnostics;
 
 public class HandScalerOnGrab : MonoBehaviour
 {
-    /*
     [SerializeField]
-    private TouchHandGrabInteractor _handGrabInteractor; // Reference the left-hand OVRTouchHandGrabInteractor
+    private TouchHandGrabInteractor _handGrabInteractor;
 
     [SerializeField]
-    private MyHandVisual _handVisual; // Your script that does the scaling
+    private MyHandVisual _handVisual; // Your script that scales the hand
 
-    // Optional: how much to scale if no object is grabbed
     [SerializeField]
     private float _defaultScaleRatio = 1f;
 
     private void Awake()
     {
-        // Subscribe to pointer events from the TouchHandGrabInteractor
-        _handGrabInteractor.WhenPointerEventRaised += OnPointerEvent;
+        // Subscribe to state changes
+        _handGrabInteractor.WhenStateChanged += OnHandGrabStateChanged;
     }
 
     private void OnDestroy()
     {
-        // Unsubscribe to avoid leaks
-        _handGrabInteractor.WhenPointerEventRaised -= OnPointerEvent;
+        // Unsubscribe to prevent memory leaks
+        _handGrabInteractor.WhenStateChanged -= OnHandGrabStateChanged;
     }
 
-    private void OnPointerEvent(PointerEvent evt)
+    private void OnHandGrabStateChanged(InteractorStateChangeArgs args)
     {
-        switch (evt.Type)
+        // Detect a transition *to* Select
+        if (args.NewState == InteractorState.Select)
         {
-            case PointerEventType.Select:
-                // The hand just grabbed an interactable
-                var grabbedObj = _handGrabInteractor.SelectedInteractable;
-                if (grabbedObj != null)
+            var grabbedObj = _handGrabInteractor.SelectedInteractable;
+            if (grabbedObj != null)
+            {
+                // For example, read Rigidbody.mass
+                var rb = grabbedObj.GetComponent<Rigidbody>();
+                if (rb != null)
                 {
-                    // Check for a rigidbody to read mass
-                    var rb = grabbedObj.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        float mass = rb.mass; // or your own script's mass property
-                        _handVisual.ScaleMovements = true;
-                        _handVisual.ScaleRatio = 1f / mass;
-                        UnityEngine.Debug.Log($"[HandScalerOnGrab] Grabbed '{grabbedObj.name}' with mass={mass}.");
-                    }
-                }
-                break;
+                    float mass = rb.mass;
+                    // Scale the hand movement by 1/mass
+                    _handVisual.ScaleMovements = true;
+                    _handVisual.ScaleRatio = 1f / mass;
 
-            case PointerEventType.Unselect:
-                // The user just released the object
-                _handVisual.ScaleMovements = false;
-                _handVisual.ScaleRatio = _defaultScaleRatio;
-                UnityEngine.Debug.Log("[HandScalerOnGrab] Released object, restoring default scale.");
-                break;
+                    UnityEngine.Debug.Log($"[HandScalerOnGrab] Grabbed '{grabbedObj.name}' with mass={mass}.");
+                }
+            }
+        }
+        // Detect a transition *from* Select to something else (Hover, Idle, etc.)
+        else if (args.PreviousState == InteractorState.Select && args.NewState != InteractorState.Select)
+        {
+            // We just released
+            _handVisual.ScaleMovements = false;
+            _handVisual.ScaleRatio = _defaultScaleRatio;
+            UnityEngine.Debug.Log("[HandScalerOnGrab] Released object, restoring default scale.");
         }
     }
-    */
 }

@@ -9,11 +9,30 @@ public class MyHandVisual : MonoBehaviour
     [SerializeField]
     private HandVisual _handVisual; // Reference to the existing HandVisual component
 
-    [SerializeField]
-    private bool _scaleMovements = false; // Toggle for movement scaling
+    //[SerializeField]
+    //private bool _scaleMovements = false; // Toggle for movement scaling
+
+    //[SerializeField]
+    //private float _scaleRatio = 1.0f; // Scaling factor
 
     [SerializeField]
-    private float _scaleRatio = 1.0f; // Scaling factor
+    private bool _scaleMovements = false; // "on/off" toggle
+
+    [SerializeField]
+    private float _scaleRatio = 1.0f;     // The actual ratio to apply
+
+    public bool ScaleMovements
+    {
+        get { return _scaleMovements; }
+        set { _scaleMovements = value; }
+    }
+
+    public float ScaleRatio
+    {
+        get { return _scaleRatio; }
+        set { _scaleRatio = value; }
+    }
+
 
     private Transform _root;
     private IList<Transform> _joints;
@@ -71,14 +90,14 @@ public class MyHandVisual : MonoBehaviour
             return;
         }
 
-        if (_scaleMovements)
+        if (ScaleMovements)
         {
             UnityEngine.Debug.Log("[MyHandVisual] Scaling the position");
 
             // Retrieve the actual tracked hand pose
             if (_trackedHand.GetRootPose(out Pose handRootPose))
             {
-                Vector3 scaledPosition = _root.parent.position + (handRootPose.position - _root.parent.position) * _scaleRatio;
+                Vector3 scaledPosition = _root.parent.position + (handRootPose.position - _root.parent.position) * ScaleRatio;
                 _root.position = scaledPosition;
                 _root.rotation = handRootPose.rotation;
 
@@ -108,7 +127,7 @@ public class MyHandVisual : MonoBehaviour
                     if (_joints[i] == null) continue;
 
                     Pose jointPose = localJoints[i];
-                    Vector3 scaledJointPosition = _root.position + (jointPose.position - _root.position) * _scaleRatio;
+                    Vector3 scaledJointPosition = _root.position + (jointPose.position - _root.position) * ScaleRatio;
 
                     _joints[i].SetPositionAndRotation(scaledJointPosition, jointPose.rotation);
                 }
@@ -122,7 +141,7 @@ public class MyHandVisual : MonoBehaviour
         // Update material properties (ensures wrist scaling works)
         if (_materialEditor != null)
         {
-            _materialEditor.MaterialPropertyBlock.SetFloat("_WristScale", _scaleRatio);
+            _materialEditor.MaterialPropertyBlock.SetFloat("_WristScale", ScaleRatio);
             _materialEditor.UpdateMaterialPropertyBlock();
         }
     }
