@@ -9,44 +9,36 @@ public class HandScalerOnGrab : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private TouchHandGrabInteractor _handGrabInteractor;
-    // e.g. “LeftHand/HandInteractorsLeft/OVRTouchHandGrabInteractor”
 
     [SerializeField]
     private HandVisual _handVisual;
-    // The Oculus HandVisual that provides the virtual hand skeleton & mesh
 
     [Header("Default Settings")]
     [SerializeField]
     private float _defaultScaleRatio = 1f;
-    // Movement scale ratio when NOT holding anything
 
     // Internal references
-    private Transform _handRoot;                // The root transform of the virtual hand
-    private IList<Transform> _fingerJoints;     // Finger bone transforms
+    private Transform _handRoot;
+    private IList<Transform> _fingerJoints;
     private SkinnedMeshRenderer _meshRenderer;
     private MaterialPropertyBlockEditor _materialEditor;
-    private IHand _trackedHand;                 // The real (tracked) hand data
+    private IHand _trackedHand;
 
-    // State for scaling
+    // Scaling state
     private bool _isScaling = false;
     private float _currentScaleRatio = 1f;
 
-    // Positions/rotations at the moment of grab
-    private Vector3 _grabStartRealPos;          // Real hand position at grab time
-    private Quaternion _grabStartRealRot;       // Real hand rotation at grab time
-
-    private Vector3 _grabStartVirtualPos;       // Virtual hand position at grab time
-
-    // The grabbed object and its transform at grab time
+    // Grabbed object tracking
     private GameObject _grabbedObject = null;
+    private Grabbable _grabbedGrabbable = null;  // Reference to the Grabbable script
+    private Vector3 _grabStartRealPos;
+    private Vector3 _grabStartVirtualPos;
     private Vector3 _grabbedObjectStartPos;
-    private Quaternion _grabbedObjectStartRot;
 
     private bool _started = false;
 
     private void Awake()
     {
-        // Subscribe to state changes on the grab interactor
         if (_handGrabInteractor != null)
         {
             _handGrabInteractor.WhenStateChanged += OnHandGrabStateChanged;
@@ -67,7 +59,6 @@ public class HandScalerOnGrab : MonoBehaviour
 
     private void Start()
     {
-        // Gather references from the assigned HandVisual
         if (_handVisual == null)
         {
             UnityEngine.Debug.LogError("[HandScalerOnGrab] HandVisual is not assigned!");
@@ -86,9 +77,7 @@ public class HandScalerOnGrab : MonoBehaviour
             return;
         }
 
-        // Ensure the skinned mesh is visible
         _meshRenderer.enabled = true;
-
         _started = true;
     }
 
@@ -97,7 +86,7 @@ public class HandScalerOnGrab : MonoBehaviour
     /// </summary>
     private void OnHandGrabStateChanged(InteractorStateChangeArgs args)
     {
-        // Transition INTO Select => user has grabbed an object
+        // When user GRABS an object
         if (args.NewState == InteractorState.Select)
         {
             var interactable = _handGrabInteractor.SelectedInteractable;
@@ -105,54 +94,50 @@ public class HandScalerOnGrab : MonoBehaviour
             {
                 _grabbedObject = interactable.gameObject;
 
-                // Try to read mass => scale ratio = 1/mass
+                // Try to access the Grabbable component
+                _grabbedGrabbable = _grabbedObject.GetComponent<Grabbable>();
+                if (_grabbedGrabbable != null)
+                {
+                    _grabbedGrabbable.enabled = false; // Disable Grabbable to stop default Oculus movement
+                }
+
+                // Read mass to determine scale ratio
                 Rigidbody rb = _grabbedObject.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    float mass = rb.mass;
-                    _currentScaleRatio = 1f / mass; // e.g. mass=2 => ratio=0.5
-                }
-                else
-                {
-                    // If no rigidbody, fallback to default
-                    _currentScaleRatio = _defaultScaleRatio;
-                }
+                _currentScaleRatio = (rb != null) ? 1f / rb.mass : _defaultScaleRatio;
 
                 _isScaling = true;
 
-                // Record the real hand pose at grab
                 if (_trackedHand.GetRootPose(out Pose realHandPose))
                 {
                     _grabStartRealPos = realHandPose.position;
-                    _grabStartRealRot = realHandPose.rotation;
                 }
                 else
                 {
                     _grabStartRealPos = Vector3.zero;
-                    _grabStartRealRot = Quaternion.identity;
                 }
 
-                // Record the virtual hand's position at grab
                 _grabStartVirtualPos = _handRoot.position;
-
-                // Record the grabbed object's position/rotation
                 _grabbedObjectStartPos = _grabbedObject.transform.position;
-                _grabbedObjectStartRot = _grabbedObject.transform.rotation;
 
-                UnityEngine.Debug.Log($"[HandScalerOnGrab] Grabbed {_grabbedObject.name} => scaleRatio={_currentScaleRatio}");
+                UnityEngine.Debug.Log($"[HandScalerOnGrab] Grabbed {_grabbedObject.name}, Scale Ratio: {_currentScaleRatio}");
             }
         }
-        // Transition OUT of Select => user just released
+        // When user RELEASES the object
         else if (args.PreviousState == InteractorState.Select && args.NewState != InteractorState.Select)
         {
-            // Stop scaling => revert to 1:1 movement for the hand
             _isScaling = false;
             _currentScaleRatio = _defaultScaleRatio;
 
-            // We'll no longer update the object => it remains where it is
+            // Re-enable Grabbable so it can be grabbed again
+            if (_grabbedGrabbable != null)
+            {
+                _grabbedGrabbable.enabled = true;
+                _grabbedGrabbable = null;
+            }
+
             _grabbedObject = null;
 
-            UnityEngine.Debug.Log("[HandScalerOnGrab] Released object => scale off, returning 1:1 movement.");
+            UnityEngine.Debug.Log("[HandScalerOnGrab] Released object, scaling off.");
         }
     }
 
@@ -160,7 +145,7 @@ public class HandScalerOnGrab : MonoBehaviour
     {
         if (!_started) return;
 
-        // If the hand isn't tracked or data is invalid, hide the mesh
+        // Hide mesh if tracking is lost
         if (!_trackedHand.IsTrackedDataValid)
         {
             _meshRenderer.enabled = false;
@@ -171,43 +156,34 @@ public class HandScalerOnGrab : MonoBehaviour
             _meshRenderer.enabled = true;
         }
 
-        // Always read the current real hand pose
+        // Get current real hand position
         if (_trackedHand.GetRootPose(out Pose currentRealPose))
         {
-            // The virtual hand always uses 1:1 rotation
-            _handRoot.rotation = currentRealPose.rotation;
+            _handRoot.rotation = currentRealPose.rotation; // Always 1:1 rotation
 
             if (_isScaling)
             {
-                // Movement offset from the real hand's grab position
+                // Compute movement offset from real grab position
                 Vector3 realDelta = currentRealPose.position - _grabStartRealPos;
                 Vector3 scaledOffset = realDelta * _currentScaleRatio;
 
-                // Update the virtual hand’s position
+                // Move virtual hand
                 _handRoot.position = _grabStartVirtualPos + scaledOffset;
 
-                // Also move the grabbed object by the same scaled offset
+                // Move grabbed object
                 if (_grabbedObject != null)
                 {
-                    // For rotation, we see how much the real hand rotated from grab-time
-                    Quaternion realRotDelta = currentRealPose.rotation * Quaternion.Inverse(_grabStartRealRot);
-                    // Apply that delta to the object's original rotation
-                    Quaternion newObjRotation = realRotDelta * _grabbedObjectStartRot;
-
-                    // For position, we do the same offset-based approach
-                    Vector3 newObjPosition = _grabbedObjectStartPos + scaledOffset;
-
-                    _grabbedObject.transform.SetPositionAndRotation(newObjPosition, newObjRotation);
+                    _grabbedObject.transform.position = _grabbedObjectStartPos + scaledOffset;
                 }
             }
             else
             {
-                // Normal 1:1 movement for the virtual hand
+                // Normal 1:1 movement
                 _handRoot.position = currentRealPose.position;
             }
         }
 
-        // Update finger joints to match the moved _handRoot
+        // Update finger joints to match new hand root
         if (_trackedHand.GetJointPosesLocal(out ReadOnlyHandJointPoses localJoints))
         {
             for (int i = 0; i < _fingerJoints.Count; i++)
@@ -225,7 +201,7 @@ public class HandScalerOnGrab : MonoBehaviour
             }
         }
 
-        // If your shader supports a "_WristScale" or similar param, you can set it here
+        // Optional: Adjust wrist scaling in shader
         if (_materialEditor != null)
         {
             _materialEditor.MaterialPropertyBlock.SetFloat("_WristScale", _currentScaleRatio);
@@ -233,6 +209,7 @@ public class HandScalerOnGrab : MonoBehaviour
         }
     }
 }
+
 
 
 
