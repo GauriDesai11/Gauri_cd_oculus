@@ -872,8 +872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1419650be1e2e142b69a33bf172802c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handVisual: {fileID: 77626377}
   _handGrabInteractor: {fileID: 1834084577}
+  _handVisual: {fileID: 77626377}
   _defaultScaleRatio: 1
 --- !u!1 &79167642
 GameObject:
@@ -8380,7 +8380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mruk: {fileID: 1695406528}
   controller: 1
-  prefabA: {fileID: 7738192253055319192, guid: 3682567da4b36e04e84c58415ff93f84, type: 3}
+  prefabA: {fileID: 7738192253055319192, guid: 1b5623c70c9688b4ca84bb67fcc5aa85, type: 3}
   prefabB: {fileID: 7738192253055319192, guid: cc64bcd1ac1e3cd41b91459a6bf67363, type: 3}
   prefabC: {fileID: 7738192253055319192, guid: 32c079701c245ed4dba4205d2b335f70, type: 3}
 --- !u!1 &866296668
