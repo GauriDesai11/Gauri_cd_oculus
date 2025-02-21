@@ -34,6 +34,7 @@ public class HandScalerOnGrab : MonoBehaviour
     private Vector3 _grabStartRealPos;
     private Vector3 _grabStartVirtualPos;
     private Vector3 _grabbedObjectStartPos;
+    private Quaternion _grabbedObjectRotationOffset;
 
     private bool _started = false;
 
@@ -118,6 +119,8 @@ public class HandScalerOnGrab : MonoBehaviour
 
                 _grabStartVirtualPos = _handRoot.position;
                 _grabbedObjectStartPos = _grabbedObject.transform.position;
+                //_grabbedObjectStartRot = _grabbedObject.transform.rotation;
+                _grabbedObjectRotationOffset = Quaternion.Inverse(_handRoot.rotation) * _grabbedObject.transform.rotation;
 
                 UnityEngine.Debug.Log($"[HandScalerOnGrab] Grabbed {_grabbedObject.name}, Scale Ratio: {_currentScaleRatio}");
             }
@@ -174,6 +177,8 @@ public class HandScalerOnGrab : MonoBehaviour
                 if (_grabbedObject != null)
                 {
                     _grabbedObject.transform.position = _grabbedObjectStartPos + scaledOffset;
+                    _grabbedObject.transform.rotation = _handRoot.rotation * _grabbedObjectRotationOffset;
+                    //_grabbedObject.SetPositionAndRotation(_grabbedObjectStartPos + scaledOffset, _grabbedObject.transform.rotation);
                 }
             }
             else
