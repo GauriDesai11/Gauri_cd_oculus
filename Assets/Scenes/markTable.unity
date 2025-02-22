@@ -8383,6 +8383,7 @@ MonoBehaviour:
   prefabA: {fileID: 7738192253055319192, guid: 1b5623c70c9688b4ca84bb67fcc5aa85, type: 3}
   prefabB: {fileID: 7738192253055319192, guid: cc64bcd1ac1e3cd41b91459a6bf67363, type: 3}
   prefabC: {fileID: 7738192253055319192, guid: 32c079701c245ed4dba4205d2b335f70, type: 3}
+  TargetPlace: {fileID: 5290937396206452955, guid: 3028b2162240f304a9da8973d5d59222, type: 3}
 --- !u!1 &866296668
 GameObject:
   m_ObjectHideFlags: 0
@@ -16308,7 +16309,7 @@ PrefabInstance:
     - target: {fileID: 2296141232796561049, guid: 37c47f9928e3fef4bb9a9ffaafab5526, type: 3}
       propertyPath: MeshMaterial
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: e531a5a4f5ea30a479c4d738764b3192, type: 2}
     - target: {fileID: 2296141232796561049, guid: 37c47f9928e3fef4bb9a9ffaafab5526, type: 3}
       propertyPath: SpawnOnStart
       value: 2

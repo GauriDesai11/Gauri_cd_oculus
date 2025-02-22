@@ -14,6 +14,7 @@ public class TableCube : MonoBehaviour
     [SerializeField] private GameObject prefabA;
     [SerializeField] private GameObject prefabB;
     [SerializeField] private GameObject prefabC;
+    [SerializeField] private GameObject TargetPlace;
 
     private bool sceneLoaded;
     private MRUKRoom currRoom;
@@ -101,9 +102,13 @@ public class TableCube : MonoBehaviour
                 // Instantiate prefabs
                 GameObject objA = Instantiate(prefab1, leftPosition, Quaternion.identity, anchor.transform);
                 GameObject objB = Instantiate(prefab2, rightPosition, Quaternion.identity, anchor.transform);
+                GameObject objATarget = Instantiate(TargetPlace, leftPosition, Quaternion.identity, anchor.transform);
+                GameObject objBTarget = Instantiate(TargetPlace, rightPosition, Quaternion.identity, anchor.transform);
 
                 spawnedObjects.Add(objA);
                 spawnedObjects.Add(objB);
+                spawnedObjects.Add(objATarget);
+                spawnedObjects.Add(objBTarget);
 
                 UnityEngine.Debug.Log($"[TableCube] Spawned {prefab1.name} & {prefab2.name}");
             }
