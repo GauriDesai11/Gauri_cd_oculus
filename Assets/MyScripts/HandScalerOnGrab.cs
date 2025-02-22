@@ -34,8 +34,8 @@ public class HandScalerOnGrab : MonoBehaviour
     private Rigidbody _grabbedRigidbody = null;  // Rigidbody reference for physics
     private Vector3 _grabStartRealPos;
     private Vector3 _grabStartVirtualPos;
-    private Vector3 _grabbedObjectStartPos;
-    private Quaternion _grabbedObjectRotationOffset;
+    //private Vector3 _grabbedObjectStartPos;
+    //private Quaternion _grabbedObjectRotationOffset;
 
     private bool _started = false;
 
@@ -89,18 +89,21 @@ public class HandScalerOnGrab : MonoBehaviour
     /// </summary>
     private void OnHandGrabStateChanged(InteractorStateChangeArgs args)
     {
+   
         // When user GRABS an object
         if (args.NewState == InteractorState.Select)
         {
             var interactable = _handGrabInteractor.SelectedInteractable;
             if (interactable != null)
             {
+
                 _grabbedObject = interactable.gameObject;
 
                 // Get Grabbable & Rigidbody
                 _grabbedGrabbable = _grabbedObject.GetComponent<Grabbable>();
                 _grabbedRigidbody = _grabbedObject.GetComponent<Rigidbody>();
 
+                /*
                 // If the object has a rigidbody, set it kinematic so we can manually move it
                 if (_grabbedRigidbody != null)
                 {
@@ -108,6 +111,7 @@ public class HandScalerOnGrab : MonoBehaviour
                     _grabbedRigidbody.linearVelocity = Vector3.zero;
                     _grabbedRigidbody.angularVelocity = Vector3.zero;
                 }
+                */
 
                 // Determine the current scale ratio based on the object's mass
                 float mass = (_grabbedRigidbody != null) ? _grabbedRigidbody.mass : 1f;
@@ -126,11 +130,11 @@ public class HandScalerOnGrab : MonoBehaviour
                 }
 
                 _grabStartVirtualPos = _handRoot.position;
-                _grabbedObjectStartPos = _grabbedObject.transform.position;
+                //_grabbedObjectStartPos = _grabbedObject.transform.position;
 
                 // Calculate rotation offset between the hand and grabbed object
-                _grabbedObjectRotationOffset =
-                    Quaternion.Inverse(_handRoot.rotation) * _grabbedObject.transform.rotation;
+                //_grabbedObjectRotationOffset =
+                //    Quaternion.Inverse(_handRoot.rotation) * _grabbedObject.transform.rotation;
 
                 UnityEngine.Debug.Log($"[HandScalerOnGrab] Grabbed {_grabbedObject.name}, ScaleRatio: {_currentScaleRatio}");
             }
@@ -178,18 +182,22 @@ public class HandScalerOnGrab : MonoBehaviour
 
             if (_isScaling && _grabbedObject != null)
             {
+                
                 // Compute offset from the original grab position
                 Vector3 realDelta = currentRealPose.position - _grabStartRealPos;
                 Vector3 scaledOffset = realDelta * _currentScaleRatio;
+                
 
                 // Move virtual hand
                 _handRoot.position = _grabStartVirtualPos + scaledOffset;
 
+                /*
                 // Move grabbed object with the same offset
                 _grabbedObject.transform.position = _grabbedObjectStartPos + scaledOffset;
 
                 // Align rotation
                 _grabbedObject.transform.rotation = _handRoot.rotation * _grabbedObjectRotationOffset;
+                */
             }
             else
             {
