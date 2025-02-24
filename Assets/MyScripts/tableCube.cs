@@ -88,12 +88,13 @@ public class TableCube : MonoBehaviour
 
                 float surfaceWidth = scale.x;
                 float surfaceHeight = scale.y;
+                float surfaceLength = scale.z;
 
                 // Calculate the 3/8th positions from each end
                 float positionOffset = (3f / 8f) * surfaceWidth;
 
-                Vector3 leftPosition = center - new Vector3((surfaceWidth / 2) - positionOffset, 0, 0);
-                Vector3 rightPosition = center + new Vector3((surfaceWidth / 2) - positionOffset, 0, 0);
+                Vector3 leftPosition = center - new Vector3((surfaceLength / 2) - positionOffset, 0, 0);
+                Vector3 rightPosition = center + new Vector3((surfaceLength / 2) - positionOffset, 0, 0);
 
                 // Adjust height to place objects ON TOP of the surface
                 //leftPosition.y += surfaceHeight / 2;
