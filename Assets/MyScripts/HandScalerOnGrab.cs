@@ -9,6 +9,7 @@ public class HandScalerOnGrab : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private TouchHandGrabInteractor _handGrabInteractor;
+    [SerializeField] private OVRInput.Controller controller;
 
     [SerializeField]
     private HandVisual _handVisual;
@@ -32,6 +33,7 @@ public class HandScalerOnGrab : MonoBehaviour
     private GameObject _grabbedObject = null;
     private Grabbable _grabbedGrabbable = null;  // Reference to the Grabbable script
     private Rigidbody _grabbedRigidbody = null;  // Rigidbody reference for physics
+    private MyScaledTransformer _grabbedTransformer = null;
     private Vector3 _grabStartRealPos;
     private Vector3 _grabStartVirtualPos;
     //private Vector3 _grabbedObjectStartPos;
@@ -102,6 +104,21 @@ public class HandScalerOnGrab : MonoBehaviour
                 // Get Grabbable & Rigidbody
                 _grabbedGrabbable = _grabbedObject.GetComponent<Grabbable>();
                 _grabbedRigidbody = _grabbedObject.GetComponent<Rigidbody>();
+                _grabbedTransformer = _grabbedObject.GetComponent<MyScaledTransformer>();
+
+                if ((_grabbedTransformer != null) && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger, controller)))
+                {
+                    _grabbedTransformer.controllerPressed();
+                    UnityEngine.Debug.Log("[HandScalerOnGrab] called transformer pressed function");
+                }
+
+                if (_grabbedTransformer == null)
+                {
+                    UnityEngine.Debug.Log("[HandScalerOnGrab] no transformer");
+                } else
+                {
+                    UnityEngine.Debug.Log("[HandScalerOnGrab] there is a transformer");
+                }
 
                 /*
                 // If the object has a rigidbody, set it kinematic so we can manually move it
@@ -145,6 +162,20 @@ public class HandScalerOnGrab : MonoBehaviour
             _isScaling = false;
             _currentScaleRatio = _defaultScaleRatio;
 
+            if ((_grabbedTransformer != null) && (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger, controller)))
+            {
+                _grabbedTransformer.controllerReleased();
+                UnityEngine.Debug.Log("[HandScalerOnGrab] called transformer release function");
+            }
+            if (_grabbedTransformer == null)
+            {
+                UnityEngine.Debug.Log("[HandScalerOnGrab] no transformer");
+            }
+            else
+            {
+                UnityEngine.Debug.Log("[HandScalerOnGrab] there is a transformer");
+            }
+
             // Re-enable physics
             if (_grabbedRigidbody != null)
             {
@@ -161,6 +192,24 @@ public class HandScalerOnGrab : MonoBehaviour
 
     private void Update()
     {
+        if ((OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger, controller)) || (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger, controller)))
+            {
+
+            UnityEngine.Debug.Log("[HandScalerOnGrab - update] controller works");
+        }
+
+        if ((_grabbedTransformer != null) && (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger, controller)))
+        {
+            _grabbedTransformer.controllerReleased();
+            UnityEngine.Debug.Log("[HandScalerOnGrab - update] called transformer release function");
+        }
+
+        if ((_grabbedTransformer != null) && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger, controller)))
+        {
+            _grabbedTransformer.controllerPressed();
+            UnityEngine.Debug.Log("[HandScalerOnGrab - update] called transformer pressed function");
+        }
+
         if (!_started) return;
 
         // Hide the hand mesh if tracking is lost

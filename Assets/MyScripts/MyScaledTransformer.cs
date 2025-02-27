@@ -56,6 +56,16 @@ public class MyScaledTransformer : MonoBehaviour, ITransformer
         _grabbable.Transform.SetPositionAndRotation(newPosition, newRotation);
     }
 
+    public void controllerPressed()
+    {
+        UnityEngine.Debug.Log("[Transformer] controller button pressed down");
+    }
+
+    public void controllerReleased()
+    {
+        UnityEngine.Debug.Log("[Transformer] controller button released");
+    }
+
     // Called when the transform ends (grab is fully released)
     public void EndTransform()
     {

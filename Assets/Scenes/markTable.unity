@@ -873,6 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handGrabInteractor: {fileID: 1834084577}
+  controller: 2
   _handVisual: {fileID: 77626377}
   _defaultScaleRatio: 1
 --- !u!1 &79167642
@@ -14295,6 +14296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handGrabInteractor: {fileID: 1567623828}
+  controller: 2
   _handVisual: {fileID: 1373745661}
   _defaultScaleRatio: 1
 --- !u!1 &1374532837
