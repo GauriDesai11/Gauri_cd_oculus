@@ -30,7 +30,7 @@ public class MyScaledTransformer : MonoBehaviour, ITransformer
             // Store the initial rotation offset
             _initialRotationOffset = Quaternion.Inverse(_virtualHand.rotation) * transform.rotation;
 
-            _isAttached = true;
+            //_isAttached = true;
         }
     }
 
@@ -78,6 +78,10 @@ public class MyScaledTransformer : MonoBehaviour, ITransformer
 
     public void EndTransform()
     {
+        if (_isAttached)
+        {
+            UnityEngine.Debug.Log("[MyScaledTransformer] transformer ending but object is still attached");
+        }
         _isAttached = false;
     }
 }
