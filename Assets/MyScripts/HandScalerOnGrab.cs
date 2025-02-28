@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿
+/*
+using UnityEngine;
 using Oculus.Interaction;
 using Oculus.Interaction.Input;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ public class HandScalerOnGrab : MonoBehaviour
     [SerializeField]
     private TouchHandGrabInteractor _handGrabInteractor;
     [SerializeField] private OVRInput.Controller controller;
+    [SerializeField] private LayerMask grabbableLayer; // Define layer for grab objects
 
     [SerializeField]
     private HandVisual _handVisual;
@@ -36,8 +39,6 @@ public class HandScalerOnGrab : MonoBehaviour
     private MyScaledTransformer _grabbedTransformer = null;
     private Vector3 _grabStartRealPos;
     private Vector3 _grabStartVirtualPos;
-    //private Vector3 _grabbedObjectStartPos;
-    //private Quaternion _grabbedObjectRotationOffset;
 
     private bool _started = false;
 
@@ -91,7 +92,7 @@ public class HandScalerOnGrab : MonoBehaviour
     /// </summary>
     private void OnHandGrabStateChanged(InteractorStateChangeArgs args)
     {
-   
+        
         // When user GRABS an object
         if (args.NewState == InteractorState.Select)
         {
@@ -105,31 +106,7 @@ public class HandScalerOnGrab : MonoBehaviour
                 _grabbedGrabbable = _grabbedObject.GetComponent<Grabbable>();
                 _grabbedRigidbody = _grabbedObject.GetComponent<Rigidbody>();
                 _grabbedTransformer = _grabbedObject.GetComponent<MyScaledTransformer>();
-
-                if ((_grabbedTransformer != null) && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger, controller)))
-                {
-                    _grabbedTransformer.controllerPressed();
-                    UnityEngine.Debug.Log("[HandScalerOnGrab] called transformer pressed function");
-                }
-
-                if (_grabbedTransformer == null)
-                {
-                    UnityEngine.Debug.Log("[HandScalerOnGrab] no transformer");
-                } else
-                {
-                    UnityEngine.Debug.Log("[HandScalerOnGrab] there is a transformer");
-                }
-
-                /*
-                // If the object has a rigidbody, set it kinematic so we can manually move it
-                if (_grabbedRigidbody != null)
-                {
-                    _grabbedRigidbody.isKinematic = true;
-                    _grabbedRigidbody.linearVelocity = Vector3.zero;
-                    _grabbedRigidbody.angularVelocity = Vector3.zero;
-                }
-                */
-
+  
                 // Determine the current scale ratio based on the object's mass
                 float mass = (_grabbedRigidbody != null) ? _grabbedRigidbody.mass : 1f;
                 _currentScaleRatio = (mass > 0f) ? 1f / mass : _defaultScaleRatio;
@@ -147,11 +124,7 @@ public class HandScalerOnGrab : MonoBehaviour
                 }
 
                 _grabStartVirtualPos = _handRoot.position;
-                //_grabbedObjectStartPos = _grabbedObject.transform.position;
-
-                // Calculate rotation offset between the hand and grabbed object
-                //_grabbedObjectRotationOffset =
-                //    Quaternion.Inverse(_handRoot.rotation) * _grabbedObject.transform.rotation;
+               
 
                 UnityEngine.Debug.Log($"[HandScalerOnGrab] Grabbed {_grabbedObject.name}, ScaleRatio: {_currentScaleRatio}");
             }
@@ -161,20 +134,6 @@ public class HandScalerOnGrab : MonoBehaviour
         {
             _isScaling = false;
             _currentScaleRatio = _defaultScaleRatio;
-
-            if ((_grabbedTransformer != null) && (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger, controller)))
-            {
-                _grabbedTransformer.controllerReleased();
-                UnityEngine.Debug.Log("[HandScalerOnGrab] called transformer release function");
-            }
-            if (_grabbedTransformer == null)
-            {
-                UnityEngine.Debug.Log("[HandScalerOnGrab] no transformer");
-            }
-            else
-            {
-                UnityEngine.Debug.Log("[HandScalerOnGrab] there is a transformer");
-            }
 
             // Re-enable physics
             if (_grabbedRigidbody != null)
@@ -188,25 +147,26 @@ public class HandScalerOnGrab : MonoBehaviour
 
             UnityEngine.Debug.Log("[HandScalerOnGrab] Released object, scaling off.");
         }
+        
     }
 
     private void Update()
     {
-        if ((OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger, controller)) || (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger, controller)))
+        if ((OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, controller)) || (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller)))
             {
 
             UnityEngine.Debug.Log("[HandScalerOnGrab - update] controller works");
         }
 
-        if ((_grabbedTransformer != null) && (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger, controller)))
+        if ((_grabbedTransformer != null) && (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, controller)))
         {
-            _grabbedTransformer.controllerReleased();
+            //_grabbedTransformer.controllerReleased();
             UnityEngine.Debug.Log("[HandScalerOnGrab - update] called transformer release function");
         }
 
-        if ((_grabbedTransformer != null) && (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger, controller)))
+        if ((_grabbedTransformer != null) && (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller)))
         {
-            _grabbedTransformer.controllerPressed();
+            //_grabbedTransformer.controllerPressed();
             UnityEngine.Debug.Log("[HandScalerOnGrab - update] called transformer pressed function");
         }
 
@@ -240,13 +200,6 @@ public class HandScalerOnGrab : MonoBehaviour
                 // Move virtual hand
                 _handRoot.position = _grabStartVirtualPos + scaledOffset;
 
-                /*
-                // Move grabbed object with the same offset
-                _grabbedObject.transform.position = _grabbedObjectStartPos + scaledOffset;
-
-                // Align rotation
-                _grabbedObject.transform.rotation = _handRoot.rotation * _grabbedObjectRotationOffset;
-                */
             }
             else
             {
@@ -273,6 +226,28 @@ public class HandScalerOnGrab : MonoBehaviour
             }
         }
 
+        // Check for virtual hand grabbing using the primary Hand Trigger (right grip)
+        bool gripPressed = OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller);
+
+        if (gripPressed && _grabbedObject == null)
+        {
+            UnityEngine.Debug.Log("[HandScalerOnGrab] controller pressed");
+            TryGrabObject();
+        }
+        else if (!gripPressed && _grabbedObject != null)
+        {
+            UnityEngine.Debug.Log("[HandScalerOnGrab] controller released");
+            //ReleaseObject();
+        }
+
+        // Update virtual hand position and movement
+        if (_isScaling && _grabbedObject != null)
+        {
+            UnityEngine.Debug.Log("[HandScalerOnGrab] want to update virtual hand");
+
+            //UpdateVirtualHandMovement();
+        }
+
         // Optionally adjust wrist scaling in a shader (if your material uses this property)
         if (_materialEditor != null)
         {
@@ -280,22 +255,77 @@ public class HandScalerOnGrab : MonoBehaviour
             _materialEditor.UpdateMaterialPropertyBlock();
         }
     }
+
+    private void TryGrabObject()
+    {
+        UnityEngine.Debug.Log("[HandScalerOnGrab] trying to grab an object");
+        Collider[] colliders = Physics.OverlapSphere(_handRoot.position, 0.5f, grabbableLayer);
+
+        if (colliders.Length > 0)
+        {
+            _grabbedObject = colliders[0].gameObject;
+            _grabbedRigidbody = _grabbedObject.GetComponent<Rigidbody>();
+            _grabbedTransformer = _grabbedObject.GetComponent<MyScaledTransformer>();
+
+            if (_grabbedRigidbody != null)
+            {
+                _grabbedRigidbody.isKinematic = true; // Disable physics while holding
+                float mass = _grabbedRigidbody.mass > 0 ? _grabbedRigidbody.mass : 1f;
+                _currentScaleRatio = 1f / mass; // Scale hand movement based on object mass
+            }
+            else
+            {
+                _currentScaleRatio = _defaultScaleRatio;
+            }
+
+            //_grabbedObject.transform.SetParent(_handRoot);
+            _isScaling = true;
+            UnityEngine.Debug.Log("[HandScalerOnGrab] scaling set to true");
+
+            if (_trackedHand.GetRootPose(out Pose realHandPose))
+            {
+                _grabStartRealPos = realHandPose.position;
+                UnityEngine.Debug.Log("[HandScalerOnGrab] got real hand position");
+            }
+            else
+            {
+                _grabStartRealPos = Vector3.zero;
+                UnityEngine.Debug.Log("[HandScalerOnGrab] could not find real hand pose");
+            }
+
+            _grabStartVirtualPos = _handRoot.position;
+
+            if (_grabbedTransformer == null)
+            {
+                UnityEngine.Debug.Log("[HandScalerOnGrab]transformer is null");
+            }
+            _grabbedTransformer.AttachToVirtualHand(_handRoot);
+
+            UnityEngine.Debug.Log($"✅ Grabbed {_grabbedObject.name}, Scale Ratio: {_currentScaleRatio}");
+        }
+        else
+        {
+            UnityEngine.Debug.Log("[HandScalerOnGrab] could not find an object");
+        }
+    }
 }
+*/
 
 
-
-/*
 using UnityEngine;
 using Oculus.Interaction;
 using Oculus.Interaction.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Configuration;
 
 public class HandScalerOnGrab : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
     private TouchHandGrabInteractor _handGrabInteractor;
+    [SerializeField] private OVRInput.Controller controller;
+    [SerializeField] private LayerMask grabbableLayer; // Define layer for grab objects
 
     [SerializeField]
     private HandVisual _handVisual;
@@ -318,12 +348,14 @@ public class HandScalerOnGrab : MonoBehaviour
     // Grabbed object tracking
     private GameObject _grabbedObject = null;
     private Grabbable _grabbedGrabbable = null;  // Reference to the Grabbable script
+    private Rigidbody _grabbedRigidbody = null;  // Rigidbody reference for physics
+    private MyScaledTransformer _grabbedTransformer = null;
     private Vector3 _grabStartRealPos;
     private Vector3 _grabStartVirtualPos;
-    private Vector3 _grabbedObjectStartPos;
-    private Quaternion _grabbedObjectRotationOffset;
 
     private bool _started = false;
+    private bool _touchHandGrab = false;
+    private bool _touchHandRelease = false;
 
     private void Awake()
     {
@@ -365,37 +397,41 @@ public class HandScalerOnGrab : MonoBehaviour
             return;
         }
 
+        // Make sure the hand's skinned mesh is visible
         _meshRenderer.enabled = true;
         _started = true;
     }
 
     /// <summary>
-    /// Called when the interactor's state changes, e.g. from Hover → Select or Select → Unselect.
+    /// Called when the interactor's state changes, e.g. Hover → Select or Select → Unselect.
     /// </summary>
     private void OnHandGrabStateChanged(InteractorStateChangeArgs args)
     {
+        
         // When user GRABS an object
         if (args.NewState == InteractorState.Select)
         {
             var interactable = _handGrabInteractor.SelectedInteractable;
             if (interactable != null)
             {
+
                 _grabbedObject = interactable.gameObject;
 
-                // Try to access the Grabbable component
+                // Get Grabbable & Rigidbody
                 _grabbedGrabbable = _grabbedObject.GetComponent<Grabbable>();
-                if (_grabbedGrabbable != null)
-                {
-                    _grabbedGrabbable.enabled = false; // Disable Grabbable to stop default Oculus movement
-                    //_grabbedGrabbable._throwWhenUnselected = false;
-                }
+                _grabbedRigidbody = _grabbedObject.GetComponent<Rigidbody>();
+                _grabbedTransformer = _grabbedObject.GetComponent<MyScaledTransformer>();
 
-                // Read mass to determine scale ratio
-                Rigidbody rb = _grabbedObject.GetComponent<Rigidbody>();
-                _currentScaleRatio = (rb != null) ? 1f / rb.mass : _defaultScaleRatio;
+                _touchHandGrab = true;
 
-                _isScaling = true;
+                
+                // Determine the current scale ratio based on the object's mass
+                float mass = (_grabbedRigidbody != null) ? _grabbedRigidbody.mass : 1f;
+                _currentScaleRatio = (mass > 0f) ? 1f / mass : _defaultScaleRatio;
 
+                //_isScaling = true;
+
+                // Store positions for offset calculations
                 if (_trackedHand.GetRootPose(out Pose realHandPose))
                 {
                     _grabStartRealPos = realHandPose.position;
@@ -406,38 +442,46 @@ public class HandScalerOnGrab : MonoBehaviour
                 }
 
                 _grabStartVirtualPos = _handRoot.position;
-                _grabbedObjectStartPos = _grabbedObject.transform.position;
-                //_grabbedObjectStartRot = _grabbedObject.transform.rotation;
-                _grabbedObjectRotationOffset = Quaternion.Inverse(_handRoot.rotation) * _grabbedObject.transform.rotation;
 
-                UnityEngine.Debug.Log($"[HandScalerOnGrab] Grabbed {_grabbedObject.name}, Scale Ratio: {_currentScaleRatio}");
+
+                UnityEngine.Debug.Log($"[HandScalerOnGrab] ready to grab {_grabbedObject.name}, ScaleRatio: {_currentScaleRatio}");
+                
             }
         }
         // When user RELEASES the object
         else if (args.PreviousState == InteractorState.Select && args.NewState != InteractorState.Select)
         {
+            _touchHandRelease = true;
+
+            UnityEngine.Debug.Log($"[HandScalerOnGrab] ready to release");
+
+            /*
             _isScaling = false;
             _currentScaleRatio = _defaultScaleRatio;
 
-            // Re-enable Grabbable so it can be grabbed again
-            if (_grabbedGrabbable != null)
+            // Re-enable physics
+            if (_grabbedRigidbody != null)
             {
-                _grabbedGrabbable.enabled = true;
-                //_grabbedGrabbable._throwWhenUnselected = false;
-                _grabbedGrabbable = null;
+                _grabbedRigidbody.isKinematic = false;
+                _grabbedRigidbody = null;
             }
 
             _grabbedObject = null;
+            _grabbedGrabbable = null;
 
             UnityEngine.Debug.Log("[HandScalerOnGrab] Released object, scaling off.");
+            */
         }
+        
     }
 
     private void Update()
     {
+        
+
         if (!_started) return;
 
-        // Hide mesh if tracking is lost
+        // Hide the hand mesh if tracking is lost
         if (!_trackedHand.IsTrackedDataValid)
         {
             _meshRenderer.enabled = false;
@@ -448,36 +492,94 @@ public class HandScalerOnGrab : MonoBehaviour
             _meshRenderer.enabled = true;
         }
 
-        // Get current real hand position
+        bool gripDown = OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller);
+        bool gripUp = OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, controller); // release
+
+        if (_touchHandGrab && gripDown)
+        {
+            _isScaling = true;
+
+            UnityEngine.Debug.Log($"[HandScalerOnGrab] grab confirmed");
+        }
+        if (_touchHandRelease && gripUp)
+        {
+            _isScaling = false;
+
+            UnityEngine.Debug.Log($"[HandScalerOnGrab] release confirmed");
+        }
+
+        if (_touchHandRelease && gripDown)
+        {
+            // do not stop scaling if controller has not been released
+            _isScaling = true;
+
+            UnityEngine.Debug.Log($"[HandScalerOnGrab] not released by controller yet");
+        }
+
+
+        // Get the real hand's current pose
         if (_trackedHand.GetRootPose(out Pose currentRealPose))
         {
-            _handRoot.rotation = currentRealPose.rotation; // Always 1:1 rotation
+            // Always match the real hand's rotation in full
+            _handRoot.rotation = currentRealPose.rotation;
 
-            if (_isScaling)
+            if (_isScaling && _grabbedObject != null)
             {
-                // Compute movement offset from real grab position
+                
+                // Compute offset from the original grab position
                 Vector3 realDelta = currentRealPose.position - _grabStartRealPos;
                 Vector3 scaledOffset = realDelta * _currentScaleRatio;
+                
 
                 // Move virtual hand
                 _handRoot.position = _grabStartVirtualPos + scaledOffset;
 
-                // Move grabbed object
-                if (_grabbedObject != null)
+                if (_grabbedTransformer == null)
                 {
-                    _grabbedObject.transform.position = _grabbedObjectStartPos + scaledOffset;
-                    _grabbedObject.transform.rotation = _handRoot.rotation * _grabbedObjectRotationOffset;
-                    //_grabbedObject.SetPositionAndRotation(_grabbedObjectStartPos + scaledOffset, _grabbedObject.transform.rotation);
+                    UnityEngine.Debug.Log($"[HandScalerOnGrab] scaling and grabbed object but no transformer");
                 }
+
+                _grabbedTransformer.AttachToVirtualHand(_handRoot);
+
             }
             else
             {
-                // Normal 1:1 movement
+                // No scaling or no grabbed object → normal 1:1 movement
                 _handRoot.position = currentRealPose.position;
+
+                // release the object if there is one
+                if (_grabbedObject)
+                {
+                    _currentScaleRatio = _defaultScaleRatio;
+
+                    // Re-enable physics
+                    if (_grabbedRigidbody != null)
+                    {
+                        _grabbedRigidbody.isKinematic = false;
+                        _grabbedRigidbody = null;
+                    }
+
+                    _grabbedTransformer.DetachFromVirtualHand(); // ensure object is truely released
+
+                    _grabbedObject = null;
+                    _grabbedGrabbable = null;
+                }
+                else
+                {
+                    UnityEngine.Debug.Log($"[HandScalerOnGrab] grabbed object");
+                }
+
+                if (!_isScaling)
+                {
+                    UnityEngine.Debug.Log($"[HandScalerOnGrab] not scaling");
+                }
             }
+        }else
+        {
+            UnityEngine.Debug.Log($"[HandScalerOnGrab] cannot get pose");
         }
 
-        // Update finger joints to match new hand root
+        // Update finger joints to match the new hand root
         if (_trackedHand.GetJointPosesLocal(out ReadOnlyHandJointPoses localJoints))
         {
             for (int i = 0; i < _fingerJoints.Count; i++)
@@ -495,12 +597,13 @@ public class HandScalerOnGrab : MonoBehaviour
             }
         }
 
-        // Optional: Adjust wrist scaling in shader
+        // Optionally adjust wrist scaling in a shader (if your material uses this property)
         if (_materialEditor != null)
         {
             _materialEditor.MaterialPropertyBlock.SetFloat("_WristScale", _currentScaleRatio);
             _materialEditor.UpdateMaterialPropertyBlock();
         }
     }
+
+    
 }
-*/

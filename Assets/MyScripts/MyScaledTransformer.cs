@@ -4,6 +4,93 @@ using Oculus.Interaction;
 public class MyScaledTransformer : MonoBehaviour, ITransformer
 {
     private Grabbable _grabbable;
+    private Transform _virtualHand;
+    private bool _isAttached = false;
+
+    private Vector3 _initialOffset; // Offset from the virtual hand when grabbed
+    private Quaternion _initialRotationOffset; // Rotation offset
+
+    [SerializeField]
+    private float _scaleFactor = 1f; // Scale factor for movement
+    [SerializeField]
+    private float _smoothingFactor = 10f; // Controls movement smoothness
+
+    public void Initialize(IGrabbable grabbable)
+    {
+        _grabbable = (Grabbable)grabbable;
+    }
+
+    public void BeginTransform()
+    {
+        if (_grabbable.GrabPoints.Count > 0 && _virtualHand != null)
+        {
+            // Store the initial offset from the hand's center
+            _initialOffset = _virtualHand.InverseTransformPoint(transform.position);
+
+            // Store the initial rotation offset
+            _initialRotationOffset = Quaternion.Inverse(_virtualHand.rotation) * transform.rotation;
+
+            _isAttached = true;
+        }
+    }
+
+    public void AttachToVirtualHand(Transform virtualHand)
+    {
+        UnityEngine.Debug.Log("[MyScaledTransformer] attaching object to hand");
+
+        _virtualHand = virtualHand;
+        _isAttached = true;
+
+        // Capture initial offset & rotation relative to virtual hand
+        _initialOffset = _virtualHand.InverseTransformPoint(transform.position);
+        _initialRotationOffset = Quaternion.Inverse(_virtualHand.rotation) * transform.rotation;
+    }
+
+    public void DetachFromVirtualHand()
+    {
+        UnityEngine.Debug.Log("[MyScaledTransformer] detaching object from hand");
+
+        _isAttached = false;
+
+        // Enable physics when released
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+        }
+    }
+
+    public void UpdateTransform()
+    {
+        if (_isAttached && _virtualHand != null)
+        {
+            // Compute new position and rotation relative to the virtual hand
+            Vector3 targetPosition = _virtualHand.TransformPoint(_initialOffset);
+            Quaternion targetRotation = _virtualHand.rotation * _initialRotationOffset;
+
+            // Apply movement smoothing for better realism
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * _smoothingFactor);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _smoothingFactor);
+
+            UnityEngine.Debug.Log("[MyScaledTransformer] updated object position");
+        }
+    }
+
+    public void EndTransform()
+    {
+        _isAttached = false;
+    }
+}
+
+
+
+/*
+using UnityEngine;
+using Oculus.Interaction;
+
+public class MyScaledTransformer : MonoBehaviour, ITransformer
+{
+    private Grabbable _grabbable;
     private Pose _initialGrabPose;
     private Pose _initialObjectPose;
 
@@ -72,3 +159,4 @@ public class MyScaledTransformer : MonoBehaviour, ITransformer
         // Nothing special to do here in this example
     }
 }
+*/
