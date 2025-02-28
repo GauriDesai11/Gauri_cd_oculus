@@ -566,7 +566,7 @@ public class HandScalerOnGrab : MonoBehaviour
                 }
                 else
                 {
-                    UnityEngine.Debug.Log($"[HandScalerOnGrab] grabbed object");
+                    UnityEngine.Debug.Log($"[HandScalerOnGrab] no grabbed object");
                 }
 
                 if (!_isScaling)
