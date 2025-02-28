@@ -872,11 +872,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1419650be1e2e142b69a33bf172802c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handGrabInteractor: {fileID: 1834084577}
   controller: 2
   grabbableLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   _handVisual: {fileID: 77626377}
   _defaultScaleRatio: 1
 --- !u!1 &79167642
@@ -14225,9 +14224,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hand: {fileID: 184692518}
-  _updateRootPose: 0
+  _updateRootPose: 1
   _updateRootScale: 1
-  _updateVisibility: 0
+  _updateVisibility: 1
   _skinnedMeshRenderer: {fileID: 768970569}
   _root: {fileID: 1232869314}
   _handMaterialPropertyBlockEditor: {fileID: 768970568}
@@ -14298,11 +14297,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1419650be1e2e142b69a33bf172802c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handGrabInteractor: {fileID: 1567623828}
   controller: 2
   grabbableLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   _handVisual: {fileID: 1373745661}
   _defaultScaleRatio: 1
 --- !u!1 &1374532837
