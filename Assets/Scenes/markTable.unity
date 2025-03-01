@@ -8383,9 +8383,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mruk: {fileID: 1695406528}
   controller: 1
-  prefabA: {fileID: 7738192253055319192, guid: 3682567da4b36e04e84c58415ff93f84, type: 3}
-  prefabB: {fileID: 7738192253055319192, guid: cc64bcd1ac1e3cd41b91459a6bf67363, type: 3}
-  prefabC: {fileID: 7738192253055319192, guid: 32c079701c245ed4dba4205d2b335f70, type: 3}
+  SCube1: {fileID: 7738192253055319192, guid: 71bf98f4ca3cdba4c9a4b841fe650064, type: 3}
+  LCube1: {fileID: 7738192253055319192, guid: 3682567da4b36e04e84c58415ff93f84, type: 3}
+  smallCubes:
+  - {fileID: 7738192253055319192, guid: 917cbc5687347f34cb70383ef9601c5f, type: 3}
+  - {fileID: 7738192253055319192, guid: bb472e62231b7df4994bddde69544da7, type: 3}
+  - {fileID: 7738192253055319192, guid: 0656d34eab83f574ea4d9163a82154f5, type: 3}
+  - {fileID: 7738192253055319192, guid: bf71ce66ba8ae9a4ea4c8730ce989c77, type: 3}
+  - {fileID: 7738192253055319192, guid: e252f9c3e579ba9478d5c5d7d84d3cb6, type: 3}
+  - {fileID: 7738192253055319192, guid: 89d492eb336a5e047968e18a2512f08b, type: 3}
+  - {fileID: 7738192253055319192, guid: 44594417464793140b92237cac9147b1, type: 3}
+  - {fileID: 7738192253055319192, guid: 9f5d91cc5bb0af043a9d9d4b133aea8e, type: 3}
+  largeCubes:
+  - {fileID: 7738192253055319192, guid: cc64bcd1ac1e3cd41b91459a6bf67363, type: 3}
+  - {fileID: 7738192253055319192, guid: d5df7438a90575249b5536f7da72da8d, type: 3}
+  - {fileID: 7738192253055319192, guid: fdc841e3ff3ff8f489a14f4822700576, type: 3}
+  - {fileID: 7738192253055319192, guid: a7057b90abf1ced499820cad7bdf2236, type: 3}
+  - {fileID: 7738192253055319192, guid: 9e1f8c7bd2ddd1d40a43daa5ca3e6a71, type: 3}
+  - {fileID: 7738192253055319192, guid: 81572a1ecb30dac49a36d3526adb1e3b, type: 3}
+  - {fileID: 7738192253055319192, guid: 86d4b5b3c0f68c1438fdf7a5f83cf7d0, type: 3}
+  - {fileID: 7738192253055319192, guid: 32c079701c245ed4dba4205d2b335f70, type: 3}
   TargetPlace: {fileID: 5290937396206452955, guid: 3028b2162240f304a9da8973d5d59222, type: 3}
 --- !u!1 &866296668
 GameObject:

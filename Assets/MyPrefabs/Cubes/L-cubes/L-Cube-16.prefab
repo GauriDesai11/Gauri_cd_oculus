@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 2586867859259571262}
   - component: {fileID: 2412369554081805100}
   - component: {fileID: -2068618620694878537}
-  - component: {fileID: 4474461136145874522}
+  - component: {fileID: -4311092783795156744}
   m_Layer: 3
-  m_Name: CubeTouchGrab1
+  m_Name: L-Cube-16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 91ff3830fc4055a4fb0d0d2be32101a7, type: 2}
+  - {fileID: 2100000, guid: 02c8ba25d2c77ab4b96896162993408b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   _transferOnSecondSelection: 1
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 4474461136145874522}
+  _oneGrabTransformer: {fileID: -4311092783795156744}
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
@@ -190,12 +190,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7738192253055319192}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 681774653766ef143a1e2a9bd6ef120e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mass: 1
+  CD_ratio: 1.6
 --- !u!114 &-2068618620694878537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grabbable: {fileID: 6154617452890002470}
---- !u!114 &4474461136145874522
+--- !u!114 &-4311092783795156744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,5 +221,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55490128c0fbbd342b06ac1200b7a7f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scaleFactor: 1
+  _scaleFactor: 0.33333334
   _smoothingFactor: 10
