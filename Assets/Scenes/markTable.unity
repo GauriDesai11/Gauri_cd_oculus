@@ -8382,9 +8382,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mruk: {fileID: 1695406528}
-  controller: 1
+  controller: 2
   SCube1: {fileID: 7738192253055319192, guid: 71bf98f4ca3cdba4c9a4b841fe650064, type: 3}
   LCube1: {fileID: 7738192253055319192, guid: 3682567da4b36e04e84c58415ff93f84, type: 3}
+  BlackCube: {fileID: 7738192253055319192, guid: d5e265a948745cd4bbdb7ef678b888c6, type: 3}
   smallCubes:
   - {fileID: 7738192253055319192, guid: 917cbc5687347f34cb70383ef9601c5f, type: 3}
   - {fileID: 7738192253055319192, guid: bb472e62231b7df4994bddde69544da7, type: 3}
