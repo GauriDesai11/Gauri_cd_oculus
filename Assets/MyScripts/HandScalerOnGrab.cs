@@ -166,7 +166,7 @@ public class HandScalerOnGrab : MonoBehaviour
             _grabbedObjectStartPos = _grabbedObject.transform.position;
 
             // Calculate offset of object from virtual hand
-            _objectOffsetFromHand = _grabbedObjectStartPos - _grabStartRealPos;
+            //_objectOffsetFromHand = _grabbedObjectStartPos - _grabStartRealPos;
         }
 
         _grabbedTransformer?.AttachToVirtualHand(_handRoot);
@@ -183,7 +183,11 @@ public class HandScalerOnGrab : MonoBehaviour
         // Move object relative to where it was originally held
         //Vector3 objectScaledOffset = _objectOffsetFromHand * _currentScaleRatio;
         //_grabbedObject.transform.position = _handRoot.position + objectScaledOffset;
-        _grabbedObject.transform.position = _handRoot.position + _objectOffsetFromHand;
+
+        //_grabbedObject.transform.position = _handRoot.position + _objectOffsetFromHand;
+
+        _grabbedObject.transform.position = _grabbedObjectStartPos + scaledHandOffset;
+
 
         //_grabbedObject.transform.rotation = _handRoot.rotation;
     }
