@@ -147,7 +147,9 @@ public class HandScalerOnGrab : MonoBehaviour
         if (_grabbedRigidbody != null)
         {
             _grabbedRigidbody.isKinematic = true;
-            _currentScaleRatio = 2.0f - _grabbedObject.GetComponent<ObjProperties>().CD_ratio;
+            //_currentScaleRatio = 2.0f - _grabbedObject.GetComponent<ObjProperties>().CD_ratio;
+
+            _currentScaleRatio = _grabbedObject.GetComponent<ObjProperties>().CD_ratio;
 
             //float mass = _grabbedRigidbody.mass > 0 ? _grabbedRigidbody.mass : 1f;
             //_currentScaleRatio = 1f / mass;
