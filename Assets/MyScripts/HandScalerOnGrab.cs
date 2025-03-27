@@ -171,7 +171,7 @@ public class HandScalerOnGrab : MonoBehaviour
             //_objectOffsetFromHand = _grabbedObjectStartPos - _grabStartRealPos;
         }
 
-        _grabbedTransformer?.AttachToVirtualHand(_handRoot);
+        //_grabbedTransformer?.AttachToVirtualHand(_handRoot);
     }
 
     private void UpdateVirtualHandAndObjectMovement()
