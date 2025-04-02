@@ -9,12 +9,6 @@ public class MyHandVisual : MonoBehaviour
     [SerializeField]
     private HandVisual _handVisual; // Reference to the existing HandVisual component
 
-    //[SerializeField]
-    //private bool _scaleMovements = false; // Toggle for movement scaling
-
-    //[SerializeField]
-    //private float _scaleRatio = 1.0f; // Scaling factor
-
     [SerializeField]
     private bool _scaleMovements = false; // "on/off" toggle
 
@@ -63,9 +57,6 @@ public class MyHandVisual : MonoBehaviour
             return;
         }
 
-        // Ensure original HandVisual does not show
-        //_handVisual.ForceOffVisibility = true;
-
         // Force the virtual hand to be visible
         _meshRenderer.enabled = true;
 
@@ -79,8 +70,6 @@ public class MyHandVisual : MonoBehaviour
             return;
         }
 
-        // Hide the original HandVisual
-        //_handVisual.ForceOffVisibility = true;
         _meshRenderer.enabled = true; // Ensure the hand remains visible
 
         if (!_trackedHand.IsTrackedDataValid)
