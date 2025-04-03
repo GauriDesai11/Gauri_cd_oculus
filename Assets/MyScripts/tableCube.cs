@@ -5,6 +5,10 @@ using System.Diagnostics;
 
 public class TableCube : MonoBehaviour
 {
+    /*
+        This class spawns virtual cubes on the detected table surfaces.
+    */
+
     [Header("MRUK & Controller")]
     [SerializeField] private MRUK mruk;
     [SerializeField] private OVRInput.Controller controller;

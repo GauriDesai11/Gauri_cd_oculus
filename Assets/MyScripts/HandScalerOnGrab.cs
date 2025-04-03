@@ -5,9 +5,13 @@ using System.Collections.Generic;
 
 public class HandScalerOnGrab : MonoBehaviour
 {
+    /*
+        This class scales the movement of the virtual hand and virtual cube when needed.
+    */
+
     [Header("References")]
     [SerializeField] private OVRInput.Controller controller;
-    [SerializeField] private LayerMask grabbableLayer; // Define layer for grab objects
+    [SerializeField] private LayerMask grabbableLayer; // Define layer for cubes to be grabbed
     [SerializeField] private HandVisual _handVisual;
 
     [Header("Default Settings")]
@@ -43,7 +47,7 @@ public class HandScalerOnGrab : MonoBehaviour
             return;
         }
 
-        _handRoot = _handVisual.Root; // the visuals of the virtual hand
+        _handRoot = _handVisual.Root; // The visuals of the virtual hand
         _fingerJoints = _handVisual.Joints;
         _meshRenderer = _handVisual.GetComponentInChildren<SkinnedMeshRenderer>();
         _materialEditor = _handVisual.GetComponentInChildren<MaterialPropertyBlockEditor>();
