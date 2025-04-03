@@ -114,12 +114,13 @@ public class TableCube : MonoBehaviour
 
             foreach (var anchor in currRoom.Anchors)
             {
-                // **Only spawn on TABLE anchors**
+                // Only spawn on TABLE anchors
                 if (anchor.name != "TABLE")
                 {
                     continue; // Skip non-table anchors
                 }
 
+                // Spawn the cubes equidistance from the center of the detected table
                 Vector3 center = anchor.transform.position;
                 Vector3 scale = anchor.transform.localScale;
 
@@ -153,7 +154,8 @@ public class TableCube : MonoBehaviour
 
     private void SpawnBlackCube()
     {
-        // Delete the last two cubes before placing the black cube
+        // Delete the last two cubes before placing the black cube to signal the end of the experiment
+        // i.e. all pair of cubes have been spawned exactly once.
         foreach (var obj in spawnedObjects)
         {
             Destroy(obj);

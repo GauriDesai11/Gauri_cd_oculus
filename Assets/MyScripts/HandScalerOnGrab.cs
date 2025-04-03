@@ -27,7 +27,6 @@ public class HandScalerOnGrab : MonoBehaviour
     // Grabbed object tracking
     private GameObject _grabbedObject = null;
     private Rigidbody _grabbedRigidbody = null;
-    private MyScaledTransformer _grabbedTransformer = null;
 
     private Vector3 _grabStartRealPos;
     private Vector3 _grabStartVirtualPos;
@@ -44,7 +43,7 @@ public class HandScalerOnGrab : MonoBehaviour
             return;
         }
 
-        _handRoot = _handVisual.Root;
+        _handRoot = _handVisual.Root; // the visuals of the virtual hand
         _fingerJoints = _handVisual.Joints;
         _meshRenderer = _handVisual.GetComponentInChildren<SkinnedMeshRenderer>();
         _materialEditor = _handVisual.GetComponentInChildren<MaterialPropertyBlockEditor>();
@@ -67,6 +66,8 @@ public class HandScalerOnGrab : MonoBehaviour
         bool isHandTracked = _trackedHand.IsTrackedDataValid;
         _meshRenderer.enabled = isHandTracked;
 
+        // Decide whether to scale the virtual hand and object depending on the input from the 
+        // controller
         bool gripPressed = OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller);
         bool gripReleased = OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, controller);
 
@@ -93,6 +94,7 @@ public class HandScalerOnGrab : MonoBehaviour
             }
         }
 
+        // Set finger joints correctly to match the read hand
         if (_trackedHand.GetJointPosesLocal(out ReadOnlyHandJointPoses localJoints))
         {
             for (int i = 0; i < _fingerJoints.Count; i++)
@@ -118,13 +120,13 @@ public class HandScalerOnGrab : MonoBehaviour
 
     private void TryGrabClosestObject()
     {
+        // All cubes are added to the correct layer which is specified in grabbableLayer
         Collider[] colliders = Physics.OverlapSphere(_handRoot.position, 0.1f, grabbableLayer);
         if (colliders.Length == 0) return;
 
         float minDistance = float.MaxValue;
         GameObject closestObject = null;
         Rigidbody closestRigidbody = null;
-        MyScaledTransformer closestTransformer = null;
 
         foreach (Collider col in colliders)
         {
@@ -134,7 +136,6 @@ public class HandScalerOnGrab : MonoBehaviour
                 minDistance = distance;
                 closestObject = col.gameObject;
                 closestRigidbody = closestObject.GetComponent<Rigidbody>();
-                closestTransformer = closestObject.GetComponent<MyScaledTransformer>();
             }
         }
 
@@ -142,17 +143,11 @@ public class HandScalerOnGrab : MonoBehaviour
 
         _grabbedObject = closestObject;
         _grabbedRigidbody = closestRigidbody;
-        _grabbedTransformer = closestTransformer;
 
         if (_grabbedRigidbody != null)
         {
             _grabbedRigidbody.isKinematic = true;
-            //_currentScaleRatio = 2.0f - _grabbedObject.GetComponent<ObjProperties>().CD_ratio;
-
             _currentScaleRatio = _grabbedObject.GetComponent<ObjProperties>().CD_ratio;
-
-            //float mass = _grabbedRigidbody.mass > 0 ? _grabbedRigidbody.mass : 1f;
-            //_currentScaleRatio = 1f / mass;
         }
         else
         {
@@ -161,24 +156,41 @@ public class HandScalerOnGrab : MonoBehaviour
 
         _isScaling = true;
 
+        // Save the initial positions of the real hand, virtual hand and the virtual object
         if (_trackedHand.GetRootPose(out Pose realHandPose))
         {
             _grabStartRealPos = realHandPose.position;
             _grabStartVirtualPos = _handRoot.position;
             _grabbedObjectStartPos = _grabbedObject.transform.position;
         }
-
-        //_grabbedTransformer?.AttachToVirtualHand(_handRoot);
     }
 
     private void UpdateVirtualHandAndObjectMovement()
-    {
+    {   /* NOTE:
+            Here, larger _currentScaleRatio results in a 'lighter' object when using pseudohaptics.
+            This is because the object's movement is scaled down (ratio is <1) when the user is made 
+            to think it's heavier. However, in the report (dissertation) explaining this system, larger
+            ratio relates to a 'heavier' object. To replicate the results in the report:
+
+            Vector3 scaledHandOffset = realHandDelta / _currentScaleRatio;
+
+        */
+
         if (!_trackedHand.GetRootPose(out Pose currentRealPose)) return;
+
+        /*
+        - currentRealPose = current position of the real hand
+        - _grabStartRealPos = position at which the hand grabbed the virtual object
+        - _currentScaleRatio = C/D ratio assigned to the virtual cube being grabbed
+        - _handRoot.position = updated position of the virtual hand (scaled)
+        - _grabbedObjectStartPos = position of the virtual cube when it was grabbed
+        - _grabbedObject.transform.position = updated position of the virtual object
+        */
 
         Vector3 realHandDelta = currentRealPose.position - _grabStartRealPos;
         Vector3 scaledHandOffset = realHandDelta * _currentScaleRatio;
-        _handRoot.position = _grabStartVirtualPos + scaledHandOffset;
 
+        _handRoot.position = _grabStartVirtualPos + scaledHandOffset;
         _grabbedObject.transform.position = _grabbedObjectStartPos + scaledHandOffset;
     }
 
@@ -186,8 +198,6 @@ public class HandScalerOnGrab : MonoBehaviour
     {
         if (_grabbedObject != null)
         {
-            _grabbedTransformer?.DetachFromVirtualHand();
-
             if (_grabbedRigidbody != null)
             {
                 _grabbedRigidbody.isKinematic = false;
@@ -196,7 +206,6 @@ public class HandScalerOnGrab : MonoBehaviour
 
         _grabbedObject = null;
         _grabbedRigidbody = null;
-        _grabbedTransformer = null;
         _isScaling = false;
         _currentScaleRatio = _defaultScaleRatio;
     }
