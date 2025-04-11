@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Oculus.Interaction;
 using Oculus.Interaction.Input;
 using System.Collections.Generic;
 
-public class HandScalerOnGrab : MonoBehaviour
+public class ScalerOnGrab : MonoBehaviour
 {
     /*
         This class scales the movement of the virtual hand and virtual cube when needed.
@@ -43,7 +43,7 @@ public class HandScalerOnGrab : MonoBehaviour
     {
         if (_handVisual == null)
         {
-            UnityEngine.Debug.LogError("[HandScalerOnGrab] HandVisual is not assigned!");
+            UnityEngine.Debug.LogError("[ScalerOnGrab] HandVisual is not assigned!");
             return;
         }
 
@@ -55,7 +55,7 @@ public class HandScalerOnGrab : MonoBehaviour
 
         if (_handRoot == null || _fingerJoints == null || _meshRenderer == null || _trackedHand == null)
         {
-            UnityEngine.Debug.LogError("[HandScalerOnGrab] Missing references from HandVisual!");
+            UnityEngine.Debug.LogError("[ScalerOnGrab] Missing references from HandVisual!");
             return;
         }
 

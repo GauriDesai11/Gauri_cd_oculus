@@ -869,7 +869,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 77626374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1419650be1e2e142b69a33bf172802c, type: 3}
+  m_Script: {fileID: 11500000, guid: debe02dfbd8040a4bb7e7261026d98e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controller: 2
@@ -8120,7 +8120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc5c234723e3a54d8dd09b131117743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshType: 5
+  _meshType: 1
 --- !u!114 &829027820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8151,7 +8151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonType: 5
+  _skeletonType: 1
   _updateRootPose: 0
   _updateRootScale: 1
   _enablePhysicsCapsules: 0
@@ -11205,7 +11205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc5c234723e3a54d8dd09b131117743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshType: 4
+  _meshType: 0
 --- !u!114 &1081905963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11236,7 +11236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonType: 4
+  _skeletonType: 0
   _updateRootPose: 0
   _updateRootScale: 1
   _enablePhysicsCapsules: 0
@@ -14263,7 +14263,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1373745659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1419650be1e2e142b69a33bf172802c, type: 3}
+  m_Script: {fileID: 11500000, guid: debe02dfbd8040a4bb7e7261026d98e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controller: 2
