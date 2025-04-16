@@ -17,10 +17,10 @@ This repository contains the source code for a Unity-based VR research project f
 3. Put on the headset and **run the scene**.
 4. Hold the **right controller** and press **any button** to ensure it's being tracked.
 5. Place the controller **flat and horizontal** on the real table surface.
-6. Press the **trigger button** to spawn a pair of virtual boxes on the table.
-7. Use the **grip button** to grab a virtual box when your other virtual hand is near it.
+6. Press the **trigger button** to spawn a pair of virtual cubes on the table.
+7. Use the **grip button** to grab a virtual cube when your other virtual hand is near it.
 
 ## User Study Replication
 To replicate the original user study:
-- Place the corresponding **physical boxes** on the table **where the virtual boxes appear**.
-- While interacting with the virtual box in VR, **physically grab the real box** to simulate passive haptic feedback.
+- Place the corresponding **physical cubes** on the table **where the virtual cubes appear**.
+- While interacting with the virtual cube in VR, **physically grab the real cube** to simulate passive haptic feedback.
